@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bsouchet <bsouchet@student.42.fr>          +#+  +:+       +#+         #
+#    By: ggerhold <ggerhold@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/05/03 22:27:50 by bsouchet          #+#    #+#              #
-#    Updated: 2017/05/05 22:48:26 by bsouchet         ###   ########.fr        #
+#    Created: 2019/04/21 22:05:15 by ggerhold          #+#    #+#              #
+#    Updated: 2019/04/21 22:05:16 by ggerhold         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,7 @@ SRC = ft_atoi.c \
 	  ft_strchr.c \
 	  ft_strchri.c \
 	  ft_strlen.c \
-	  ft_strncmp.c \
-	  ft_wcharlen.c \
-	  ft_wstrlen.c
+	  ft_strncmp.c
 
 all: $(NAME)
 

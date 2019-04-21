@@ -5,16 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggerhold <ggerhold@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/03 21:40:17 by bsouchet          #+#    #+#             */
-/*   Updated: 2019/04/14 20:35:37 by ggerhold         ###   ########.fr       */
+/*   Created: 2019/04/21 21:58:44 by ggerhold          #+#    #+#             */
+/*   Updated: 2019/04/21 21:58:46 by ggerhold         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+// we've nailed it besides the comments
+
 void	pf_putnb(t_printf *p)
 {
-	long long	n; //Don't forget to change the type
+	long long	n;
 
 	if (p->f & F_LONG || p->f & F_LONG2)
 		n = (p->f & F_LONG2) ? ((long long)va_arg(p->ap, long long)) :
@@ -33,8 +35,8 @@ void	pf_putnb_base(int base, t_printf *p)
 	unsigned long long	n;
 
 	if (p->f & F_LONG || p->f & F_LONG2)
-		n = (p->f & F_LONG2) ? ((long long)va_arg(p->ap, unsigned long long)) :
-			((long long)va_arg(p->ap, unsigned long));
+		n = (p->f & F_LONG2) ? ((unsigned long long)va_arg(p->ap, unsigned long long)) :
+			((unsigned long long)va_arg(p->ap, unsigned long));
 	else if (p->f & F_SHORT || p->f & F_SHORT2)
 		n = (p->f & F_SHORT2) ? (unsigned long long)((unsigned char)va_arg(p->ap, int))
 			: (unsigned long long)((unsigned short)va_arg(p->ap, int));
@@ -70,11 +72,11 @@ void	itoa_printf(long long n, t_printf *p, int len)
 	padding(p, 1);
 }
 
-void	itoa_base_printf(uintmax_t n, int b, t_printf *p)
+void	itoa_base_printf(unsigned long long n, int b, t_printf *p) // check hexadecimal and binary
 {
-	uintmax_t	tmp;
-	char		s[21];
-	int			ext;
+	unsigned long long	tmp;
+	char				s[21];
+	int					ext;
 
 	p->printed = 0;
 	tmp = n;
@@ -103,7 +105,7 @@ void	itoa_base_fill(unsigned long long tmp, int b, char s[PF_BUF_SIZE], t_printf
 {
 	int		len;
 
-	if (tmp && !(p->f & F_POINTER) && (p->f & F_ZERO) && (p->f & F_SHARP) &&
+	if (tmp && !(p->f & F_POINTER) && (p->f & F_ZERO) && (p->f & F_SHARP) && // why so many conditions ?
 	b == 16 && !(p->f & F_LONG2) && p->printed > 3)
 		p->printed -= 2;
 	len = p->printed;
@@ -113,5 +115,5 @@ void	itoa_base_fill(unsigned long long tmp, int b, char s[PF_BUF_SIZE], t_printf
 		s[len] = tmp % b + ((tmp % b < 10) ? '0' : p->c);
 		tmp /= b;
 	}
-	(p->f & F_APP_PRECI && p->f & F_ZERO) ? s[0] = ' ' : 0;
+	(p->f & F_APP_PRECI && p->f & F_ZERO) ? s[0] = ' ' : 0; //what is going on?
 }

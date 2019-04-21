@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggerhold <ggerhold@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/03 21:36:51 by bsouchet          #+#    #+#             */
-/*   Updated: 2019/04/14 20:35:41 by ggerhold         ###   ########.fr       */
+/*   Created: 2019/04/21 21:00:42 by ggerhold          #+#    #+#             */
+/*   Updated: 2019/04/21 21:59:40 by ggerhold         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,19 @@ static void	conversion_specifier(t_printf *p)
 {
 	p->c = *p->format;
 	if (p->c == 's')
-		(p->f & F_LONG || p->f & F_LONG2) ? pf_putwstr(p) : pf_putstr(p); //without long, don't forget to delete wcharlen
-	else if (ft_strchr("dDi", p->c)) // without D
+		pf_putstr(p);
+	else if (ft_strchr("di", p->c))
 		pf_putnb(p);
-	else if (p->c == 'f' || p->c == 'F') // F makes nan NAN
+	else if (p->c == 'f')
 		(p->f & F_APP_PRECI && !p->precision) ? pf_putnb(p) : pf_putdouble(p);
-	else if (p->c == 'c' || p->c == 'C') // without C
+	else if (p->c == 'c')
 		pf_character(p, va_arg(p->ap, unsigned));
-	else if (ft_strchr("oOuUbBxX", p->c)) // O, U, bB
-		pf_putnb_base(ft_strchri_lu(".b..ou..x", p->c, -1) << 1, p); // dots
-	else if (p->c == 'S') // instead of ls or lls
-		pf_putwstr(p);
+	else if (ft_strchr("oubxX", p->c))
+		pf_putnb_base(ft_strchri_lu(".b..ou..x", p->c, -1) << 1, p);
 	else if (p->c == 'p')
 		print_pointer_address(p);
-	else if (p->c == 'n') // writes the number of characters already written
+	else if (p->c == 'n')
 		*va_arg(p->ap, int *) = p->len;
-	else if (p->c == 'm') // idk delete it
-		ft_printf_putstr(STRERR(errno), p);
-	else if (p->c == '{') // colors
-		color(p);
 	else
 		cs_not_found(p);
 }
@@ -74,7 +68,7 @@ void		parse_optionals(t_printf *p)
 	field_width_precision(p);
 	while (42)
 	{
-		if (*p->format == 'l')
+		if (*p->format == 'l') // what about L? It doesn't change anything due to type promotion into double
 			p->f |= (p->format[1] == 'l' && ++p->format) ? F_LONG2 : F_LONG;
 		else if (*p->format == 'h')
 			p->f |= (p->format[1] == 'h' && ++p->format) ? F_SHORT2 : F_SHORT;

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggerhold <ggerhold@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/03 21:35:48 by bsouchet          #+#    #+#             */
-/*   Updated: 2019/04/14 15:56:26 by ggerhold         ###   ########.fr       */
+/*   Created: 2019/04/21 21:58:28 by ggerhold          #+#    #+#             */
+/*   Updated: 2019/04/21 21:58:28 by ggerhold         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void	pf_character(t_printf *p, unsigned c)
 	if ((p->padding = p->min_length - p->printed) < 0)
 		p->padding = 0;
 	padding(p, 0);
-	buffer(p, c, p->printed);
+	buffer(p, &c, p->printed);
 	padding(p, 1);
 }

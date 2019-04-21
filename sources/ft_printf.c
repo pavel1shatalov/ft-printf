@@ -6,7 +6,7 @@
 /*   By: ggerhold <ggerhold@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 16:22:40 by ggerhold          #+#    #+#             */
-/*   Updated: 2019/04/10 16:25:16 by ggerhold         ###   ########.fr       */
+/*   Updated: 2019/04/21 21:59:20 by ggerhold         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,9 @@ void	print_pointer_address(t_printf *p)
 	void	*pointer;
 
 	pointer = va_arg(p->ap, void *);
-	p->f &= ~F_SHARP;
-	p->min_length -= (p->f & F_ZERO ? 2 : 0);
-	p->padding = (p->printed > p->min_length - 3) ? 0 :
-		p->min_length - 3 - p->printed;
 	p->f |= F_SHARP;
 	p->f |= F_POINTER;
-	itoa_base_printf((uintmax_t)pointer, 16, p);
+	itoa_base_printf((unsigned long long)pointer, 16, p);
 }
 
 void	padding(t_printf *p, int n)
