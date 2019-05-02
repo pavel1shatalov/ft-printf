@@ -6,7 +6,7 @@
 #    By: ggerhold <ggerhold@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/03 22:30:54 by bsouchet          #+#    #+#              #
-#    Updated: 2019/04/11 17:42:01 by ggerhold         ###   ########.fr        #
+#    Updated: 2019/04/25 17:25:03 by ggerhold         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SOURCES = ft_printf.c \
 		  parse_arguments.c \
 		  handle_numbers.c \
 		  handle_strings.c \
-		  bonus_functions.c
+		  handle_floats.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

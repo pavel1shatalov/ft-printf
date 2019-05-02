@@ -6,13 +6,11 @@
 /*   By: ggerhold <ggerhold@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 21:58:44 by ggerhold          #+#    #+#             */
-/*   Updated: 2019/04/21 21:58:46 by ggerhold         ###   ########.fr       */
+/*   Updated: 2019/04/30 19:58:04 by ggerhold         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-// we've nailed it besides the comments
 
 void	pf_putnb(t_printf *p)
 {
@@ -26,7 +24,6 @@ void	pf_putnb(t_printf *p)
 			(long long)((short)va_arg(p->ap, int));
 	else
 		n = ((long long)va_arg(p->ap, int));
-	(p->f & F_ZERO) ? p->precision = p->min_length : 0;
 	itoa_printf(n, p, 0);
 }
 
@@ -56,6 +53,7 @@ void	itoa_printf(long long n, t_printf *p, int len)
 		tmp /= 10;
 		++len;
 	}
+	(p->f & F_ZERO && !(p->f & F_APP_PRECI)) ? p->precision = p->min_length : 0;
 	if ((n < 0 || p->f & F_PLUS || p->f & F_SPACE) && p->f & F_ZERO)
 		--p->precision;
 	p->printed = MAX(len, p->precision);
@@ -82,7 +80,7 @@ void	itoa_base_printf(unsigned long long n, int b, t_printf *p) // check hexadec
 	tmp = n;
 	while (tmp && ++p->printed)
 		tmp /= b;
-	(p->f & F_ZERO) ? p->precision = p->min_length : 0;
+	(p->f & F_ZERO && !(p->f & F_APP_PRECI)) ? p->precision = p->min_length : 0;
 	ext = (p->printed >= p->precision) ? 0 : 1;
 	p->printed = MAX(p->precision, p->printed);
 	((p->f & F_SHARP) && b == 8 && !ext) ? --p->min_length : 0;
